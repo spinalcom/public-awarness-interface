@@ -1,31 +1,39 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+  <v-app id="app">
+    <div v-if="!cookieAccepted">
+      <encart @click="acceptCookies"/>
     </div>
+
     <router-view/>
-  </div>
+
+  </v-app>
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  #app{
+    position: relative;
+  }
 </style>
+<script>
+  import Encart from "./components/Encart";
+  export default {
+    components: { Encart },
+    data(){
+      return {
+        cookieAccepted: false
+      }
+    },
+    methods:{
+      acceptCookies(){
+        window.$cookies.set('cookiesAccepted', "ok", null, '/');
+        this.cookieAccepted = true;
+
+      }
+    },
+    mounted(){
+      if (window.$cookies.get('cookiesAccepted'))
+        this.cookieAccepted = true
+
+    }
+  }
+</script>

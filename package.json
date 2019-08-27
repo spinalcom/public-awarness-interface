@@ -1,31 +1,29 @@
 {
   "name": "public-awareness-interface",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
-    "watch": "parcel watch src/index.html --out-dir build --public-url /html/pai",
-    "serve": "parcel src/index.html --out-dir build --public-url /html/pai",
-    "build": "parcel build src/index.html --out-dir build --public-url /html/pai",
-    "lint": "vue-cli-service lint"
+    "watch": "parcel watch src/index.html --out-dir build --public-url /html/pai --no-minify  --no-cache",
+    "serve": "parcel src/index.html --out-dir build --public-url /html/pai --no-minify  --no-cache",
+    "build": "parcel build src/index.html --out-dir build --public-url /html/pai --no-minify"
   },
   "dependencies": {
-    "core-js": "^2.6.5",
+    "csv-stringify": "^5.3.0",
+    "file-saver": "^2.0.2",
+    "horizontal-date-picker": "git+https://github.com/LorisC/horizontal-date-picker.git",
+    "import": "0.0.6",
+    "moment": "^2.24.0",
+    "spinal-core-connectorjs_type": "git+https://github.com/spinalcom/spinal-core-connectorjs_type.git",
+    "spinal-env-viewer-graph-service": "git+https://github.com/spinalcom/Spinal-Graph-Service.git",
+    "spinal-forge-viewer-vue": "git+https://github.com/spinalcom/spinal-forge-viewer-vue.git",
     "vue": "^2.6.10",
+    "vue-cookies": "^1.5.13",
     "vue-router": "^3.0.3",
-    "vuetify": "^2.0.0"
+    "vue-svg-loader": "^0.12.0",
+    "vuetify": "^2.0.0",
+    "zipcelx": "^1.6.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.5.5",
-    "@vue/cli-plugin-babel": "^3.9.0",
-    "@vue/cli-plugin-eslint": "^3.9.0",
-    "@vue/cli-service": "^3.9.0",
-    "@vue/eslint-config-airbnb": "^4.0.0",
-    "babel-eslint": "^10.0.1",
-    "eslint": "^5.16.0",
-    "eslint-plugin-vue": "^5.0.0",
-    "sass": "^1.17.4",
-    "sass-loader": "^7.1.0",
-    "vue-cli-plugin-vuetify": "^0.6.1",
+    "@vue/component-compiler-utils": "^3.0.0",
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.2.2"
   },
