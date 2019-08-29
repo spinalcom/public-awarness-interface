@@ -55,6 +55,7 @@ export default class UserManager {
         if (canRegister) {
           const user = new SpinalNode( email, undefined, undefined );
           const info = {
+            name: email,
             id: user.info.id.get(),
             type: user.info.type.get(),
             connections: [],
@@ -80,11 +81,25 @@ export default class UserManager {
           if (children[i].info.id.get() === id) {
             const user = children[i];
             user.info.connections.push( new Date().getTime() );
+            return user;
+          }
+        }
+        return false;
+      } );
+  }
+  
+  connectAdmin(email, password){
+    return this.initialized
+      .then( () => this.colasUserContext.getChildren( [ColasRelationName] ) )
+      .then( ( children ) => {
+        for (let i = 0; i < children.length; i++) {
+          if (children[i].info.email.get() === email && children[i].info.password.get() === password) {
             return children[i];
           }
         }
         return false;
       } );
+    
   }
   
   getUsers() {
