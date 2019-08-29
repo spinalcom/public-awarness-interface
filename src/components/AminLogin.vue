@@ -1,7 +1,8 @@
 <template>
     <v-card max-width="344"
+            dark
     >
-        <v-card-title> Admin</v-card-title>
+        <v-card-title> Admin Login</v-card-title>
         <v-card-text>
             <v-text-field
                     label="E-mail"
@@ -19,6 +20,7 @@
         </v-card-text>
         <v-card-actions>
             <v-btn
+                    light
                     @click="connect"
                     color="rgba(254,235,52,1)">
                 Se connecter
@@ -58,17 +60,9 @@
         if (!this.validate()) return;
         const event = {};
         event.email = this.email;
-        event.departement = this.zipCode;
+        event.password = this.password;
         this.$emit( 'connect', event );
       },
     },
   };
 </script>
-
-<style scoped>
-    .form-container {
-        width: 50%;
-        height: 30%;
-
-    }
-</style>
