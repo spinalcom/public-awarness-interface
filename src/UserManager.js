@@ -16,114 +16,105 @@ export default class UserManager {
   constructor() {
     this.initialized = this.init();
   }
-
-
+  
+  
   init() {
     return getGraph()
-      .then((graph) => {
+      .then( ( graph ) => {
         this.graph = graph;
-      })
-      .then(() => this.graph.getChildren())
-      .then((children) => {
+      } )
+      .then( () => this.graph.getChildren() )
+      .then( ( children ) => {
         for (let i = 0; i < children.length; i++) {
           if (children[i].info.name.get() === ColasContextName) {
             return children[i];
           }
         }
         return undefined;
-      })
-      .then((context) => {
+      } )
+      .then( ( context ) => {
         if (typeof context !== 'undefined') this.colasUserContext = context;
         else {
-          const colasContext = new SpinalContext(ColasContextName);
-          this.graph.addContext(colasContext)
-            .then((c) => { this.colasUserContext = c; });
+          const colasContext = new SpinalContext( ColasContextName );
+          this.graph.addContext( colasContext )
+            .then( ( c ) => { this.colasUserContext = c; } );
         }
-      });
+      } );
   }
-
-  register(email, zip) {
+  
+  register( email, zip ) {
     return this.initialized
-      .then(() => this.colasUserContext.getChildren([ColasRelationName]))
-      .then((children) => {
+      .then( () => this.colasUserContext.getChildren( [ColasRelationName] ) )
+      .then( ( children ) => {
         for (let i = 0; i < children.length; i++) {
-          if (children[i].email.get() === email) return false;
+          if (children[i].info.email.get() === email) return false;
         }
         return true;
-      })
-      .then((canRegister) => {
+      } )
+      .then( ( canRegister ) => {
         if (canRegister) {
-          const user = new SpinalNode('info', undefined, undefined);
-          user.add_attr({
-            zipCode: zip, nbConnection: 1, lastCo: new Date().getTime(), isAdmin: false, email,
-          });
-          return this.colasUserContext.addChildInContext(user, ColasRelationName, ColasRelationType, this.colasUserContext);
+          const user = new SpinalNode( email, undefined, undefined );
+          const info = {
+            id: user.info.id.get(),
+            type: user.info.type.get(),
+            connections: [],
+            isAdmin: false,
+            email,
+            zip
+          };
+          user.mod_attr( 'info', info);
+          return this.colasUserContext.addChildInContext( user, ColasRelationName, ColasRelationType, this.colasUserContext );
         }
         return undefined;
-      })
-      .then((user) => {
+      } )
+      .then( ( user ) => {
         return user;
-      });
+      } );
   }
-
-  /**
-   * Compare to date return false if it the same day
-   * @param d1 previous date
-   * @param d2 new date
-   * @return {boolean}
-   * @private
-   */
-  isANewDay(d1, d2) {
-    return !(d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate());
-    
-  }
-
-  connect(id) {
+  
+  connect( id ) {
     return this.initialized
-      .then(() => this.colasUserContext.getChildren([ColasRelationName]))
-      .then((children) => {
+      .then( () => this.colasUserContext.getChildren( [ColasRelationName] ) )
+      .then( ( children ) => {
         for (let i = 0; i < children.length; i++) {
           if (children[i].info.id.get() === id) {
             const user = children[i];
-            const lastCo = new Date(user.lastCo.get());
-            if (this.isANewDay(lastCo, new Date())) {
-              user.nbConnection.set(user.nbConnection.get() + 1);
-            }
+            user.info.connections.push( new Date().getTime() );
             return children[i];
           }
         }
         return false;
-      });
+      } );
   }
-
+  
   getUsers() {
     return this.initialized
-      .then(() => this.colasUserContext.getChildren([ColasRelationName]));
+      .then( () => this.colasUserContext.getChildren( [ColasRelationName] ) );
   }
-
-  getUser(id) {
+  
+  getUser( id ) {
     return this.initialized
-      .then(() => this.colasUserContext.getChildren([ColasRelationName]))
-      .then((children) => {
+      .then( () => this.colasUserContext.getChildren( [ColasRelationName] ) )
+      .then( ( children ) => {
         for (let i = 0; i < children.length; i++) {
           if (children[i].info.id.get() === id) {
             return children[i];
           }
         }
         return undefined;
-      });
+      } );
   }
   
-  getUserByEmail(email){
+  getUserByEmail( email ) {
     return this.initialized
-      .then(() => this.colasUserContext.getChildren([ColasRelationName]))
-      .then((children) => {
+      .then( () => this.colasUserContext.getChildren( [ColasRelationName] ) )
+      .then( ( children ) => {
         for (let i = 0; i < children.length; i++) {
-          if (children[i].email.get() === email) {
+          if (children[i].info.email.get() === email) {
             return children[i];
           }
         }
         return undefined;
-      });
+      } );
   }
 }
