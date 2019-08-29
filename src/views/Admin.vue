@@ -64,12 +64,17 @@
         exportToXLSX( 'user', this.users );
       },
       connect( event ) {
-        console.log( event );
+        this.$userManager.connectAdmin(event.email, event.password)
+          .then(res => {
+          console.log(res);
+          console.log( event );
+
+        })
+
       }
     },
     mounted() {
-      this.userManager = new UserManager();
-      this.userManager.getUsers().then( users => {
+      this.$userManager.getUsers().then( users => {
         for (let i = 0; i < users.length; i++) {
           const user = users[i];
           for (let j = 0; j < user.info.connections.length; j++) {
@@ -87,7 +92,7 @@
       } );
       const cookie = window.$cookies.get( 'user' );
       if ((typeof cookie !== 'undefined' || cookie !== null)) {
-        this.userManager.getUser( cookie ).then( user => {
+        this.$userManager.getUser( cookie ).then( user => {
           if (user.info.hasOwnProperty( 'isAdmin' ) && user.info.isAdmin.get())
             this.loggedIn = true
         } )
