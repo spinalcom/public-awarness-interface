@@ -90,7 +90,7 @@
         const event = {};
         event.cgu = this.cgu;
         event.email = this.email;
-        event.departement = this.zipCode;
+        event.zipCode = this.zipCode;
         this.$emit( 'saved', event );
       },
     },
