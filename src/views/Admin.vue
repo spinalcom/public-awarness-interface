@@ -44,18 +44,16 @@
         headers: [
           { text: 'E-mail', value: 'email' },
           { text: 'Code postal', value: 'zipcode' },
-          { text: 'Nombre de connection', value: 'nbConnection' },
+          { text: 'Date de connection', value: 'date' },
+          { text: 'Heure de connection', value: 'hour' },
+          { text: 'Administrateur', value: 'isAdmin' },
         ],
         loggedIn: false
       };
     },
     computed: {
       nbCo() {
-        let res = 0;
-        for (let i = 0; i < this.users.length; i++) {
-          res += this.users[i].nbConnection;
-        }
-        return res;
+        return this.users.length;
       },
     },
     methods: {
@@ -71,20 +69,26 @@
     },
     mounted() {
       this.userManager = new UserManager();
-      this.userManager.getUsers().then(users => {
+      this.userManager.getUsers().then( users => {
         for (let i = 0; i < users.length; i++) {
           const user = users[i];
-          this.users.push({
-            email: user.email.get(),
-            zipcode: user.zipCode.get(),
-            nbConnection: user.nbConnection.get()
-          })
+          for (let j = 0; j < user.info.connections.length; j++) {
+            this.users.push( {
+              email: user.info.email.get(),
+              zipcode: user.info.zip.get(),
+              date:
+                new Date( user.info.connections[i].get() ).toLocaleDateString(),
+              hour:
+                new Date( user.info.connections[i].get() ).toLocaleTimeString(),
+              isAdmin: user.info.isAdmin.get().toString()
+            } )
+          }
         }
-      })
+      } );
       const cookie = window.$cookies.get( 'user' );
       if ((typeof cookie !== 'undefined' || cookie !== null)) {
         this.userManager.getUser( cookie ).then( user => {
-          if (user.hasOwnProperty( 'isAdmin' ) && user.isAdmin)
+          if (user.info.hasOwnProperty( 'isAdmin' ) && user.info.isAdmin.get())
             this.loggedIn = true
         } )
       }
