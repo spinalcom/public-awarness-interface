@@ -1,5 +1,5 @@
 <template>
-    <div class="login-body" :class="{inverse:agreed, normal: !agreed}">
+    <div class="login-body normal">
         <request-user-information
                 class="login-item"
                 v-if="!agreed"
@@ -58,6 +58,8 @@
       },
       redirectToMainPage( user ) {
         window.$cookies.set( 'user', user.info.id.get(), null, '/' );
+        console.log(user)
+        console.log(window.$cookies.get('user'));
         this.$router.push( '/' )
       }
     },
@@ -75,12 +77,6 @@
 </script>
 
 <style scoped>
-    .inverse {
-        background-image: url(../assets/background-inverse.png), url(../assets/colas-invers.jpg);
-        background-repeat: no-repeat, no-repeat;
-        background-size: cover, cover;
-    }
-
     .normal {
         background-image: url(../assets/background.png), url(../assets/colas.jpg);
         background-repeat: no-repeat, no-repeat;
@@ -95,7 +91,7 @@
     }
 
     .login-item {
-        width: 50%;
+        width: 30%;
         height: 50%;
         margin: 0;
         position: absolute;
