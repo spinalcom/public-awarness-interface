@@ -6,24 +6,24 @@
                 @agreed="agreed = true"
                 @leave="redirectToGoogle"
         ></request-user-information>
-        <user-information
+        <register-form
                 class="login-item"
                 v-else
                 @saved="savedInfo"
-        ></user-information>
+        ></register-form>
 
     </div>
 </template>
 
 <script>
-  import UserInformation from '../components/UserInformation.vue';
+  import RegisterForm from '../components/RegisterForm.vue';
   import RequestUserInformation from '../components/RequestUserInformation.vue';
-  import UserManager from '../UserManager';
+
 
 
   export default {
     name: 'Login',
-    components: { RequestUserInformation, UserInformation },
+    components: { RequestUserInformation, RegisterForm },
     data() {
       return {
         agreed: false,
@@ -33,7 +33,6 @@
           cgu: false,
           partner: false,
         },
-        userManager: null,
         userAlreadyExist: false
       };
     },
@@ -43,13 +42,14 @@
         window.location.href = 'https://google.fr';
       },
       savedInfo( info ) {
-        this.userManager
+        console.log('rese', info)
+        this.$userManager
           .register( info.email, info.zipCode )
           .then( ( user ) => {
             if (typeof user !== 'undefined') {
               this.redirectToMainPage( user )
             } else {
-              this.userManager.getUserByEmail( info.email )
+              this.$userManager.getUserByEmail( info.email )
                 .then(
                   this.redirectToMainPage( user )
                 )
@@ -62,10 +62,10 @@
       }
     },
     mounted() {
-      this.userManager = new UserManager();
+
       const cookie = window.$cookies.get( 'user' );
       if ((typeof cookie !== 'undefined' || cookie !== null)) {
-        this.userManager.connect( cookie )
+        this.$userManager.connect( cookie )
           .then( ( res ) => {
             if (res) this.$router.push( '/' );
           } );

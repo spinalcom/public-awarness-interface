@@ -20,11 +20,10 @@
   import { SpinalGraphService } from 'spinal-env-viewer-graph-service';
   import getGraph from '../spinal-connector';
   import loadModelPtr from '../utils';
-  import UserManager from '../UserManager';
   import HorizontalDatePicker
     from "../components/Timlines/HorizontalDatePicker";
   import filterDb
-    from "../ForgeWorkerFunction";
+    , { getValues } from "../ForgeWorkerFunction";
 
   export default {
     name: 'home',
@@ -73,6 +72,8 @@
               .then( ( m ) => {
                 this.model = m;
                 this.loaded = true;
+                getValues(this.model,this.attrName).then(res =>
+                {console.log('getValue ', res)})
               } );
           } );
       },
@@ -129,8 +130,7 @@
       const cookie = window.$cookies.get( 'user' );
       if (typeof cookie === 'undefined' || cookie === '' || cookie === null) this.$router.push( 'login' );
       else {
-        const userManager = new UserManager();
-        userManager
+        this.$userManager
           .connect( cookie )
           .then( ( res ) => {
             if (!res) this.$router.push( 'login' );
