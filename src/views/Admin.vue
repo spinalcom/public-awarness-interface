@@ -1,6 +1,6 @@
 <template>
     <div>
-        <login v-if="!loggedIn"
+        <login class="login-form" v-if="!loggedIn"
                @connect="connect"
         ></login>
         <div v-else>
@@ -17,7 +17,7 @@
                 <template v-slot:items="props">
                     <td>{{ props.item.email }}</td>
                     <td class="text-xs-right">{{ props.item.zipcode }}</td>
-                    <td class="text-xs-right">{{ props.item.nbConnection }}</td>
+                    <td class="text-xs-right">{{ props.item.date }}</td>
                 </template>
 
             </v-data-table>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import Login from '../components/Login.vue';
+  import Login from '../components/AminLogin.vue';
   import UserManager from '../UserManager';
 
   import {
@@ -40,8 +40,7 @@
     components: { Login },
     data() {
       return {
-        users: [
-        ],
+        users: [],
         headers: [
           { text: 'E-mail', value: 'email' },
           { text: 'Code postal', value: 'zipcode' },
@@ -71,7 +70,6 @@
       }
     },
     mounted() {
-
       this.userManager = new UserManager();
       this.userManager.getUsers().then(users => {
         for (let i = 0; i < users.length; i++) {
@@ -96,5 +94,10 @@
 </script>
 
 <style scoped>
-
+.login-form{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
 </style>
