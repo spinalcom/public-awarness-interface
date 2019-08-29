@@ -6,6 +6,7 @@ import {
 import getGraph from './spinal-connector';
 
 const ColasContextName = 'ColasUser';
+const ColasUserType = 'ColasUser';
 const ColasRelationName = 'ColasUserRelationName';
 const ColasRelationType = SPINAL_RELATION_LST_PTR_TYPE;
 
@@ -57,7 +58,7 @@ export default class UserManager {
           const info = {
             name: email,
             id: user.info.id.get(),
-            type: user.info.type.get(),
+            type: ColasUserType,
             connections: [],
             isAdmin: false,
             email,
