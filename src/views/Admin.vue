@@ -64,6 +64,8 @@
         exportToXLSX( 'user', this.users );
       },
       connect( event ) {
+
+        this.loggedIn = true
         this.$userManager.connectAdmin(event.email, event.password)
           .then(res => {
           console.log(res);
@@ -96,7 +98,10 @@
       const cookie = window.$cookies.get( 'user' );
       if ((typeof cookie !== 'undefined' || cookie !== null)) {
         this.$userManager.getUser( cookie ).then( user => {
-          if (user.info.hasOwnProperty( 'isAdmin' ) && user.info.isAdmin.get())
+          console.log(user);
+          if (typeof user !== 'undefined' && user.info.hasOwnProperty( 'isAdmin' )
+          &&
+            user.info.isAdmin.get())
             this.loggedIn = true
         } )
       }
