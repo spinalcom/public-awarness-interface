@@ -77,7 +77,10 @@
       this.$userManager.getUsers().then( users => {
         for (let i = 0; i < users.length; i++) {
           const user = users[i];
+
           for (let j = 0; j < user.info.connections.length; j++) {
+            const connection = user.info.connections[i];
+            if (typeof connection !== "undefined")
             this.users.push( {
               email: user.info.email.get(),
               zipcode: user.info.zip.get(),
