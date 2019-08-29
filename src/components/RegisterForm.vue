@@ -21,10 +21,16 @@
                     outlined
                     v-model="zipCode"
             ></v-text-field>
+            <v-checkbox v-model="optIn">
+                <template v-slot:label>
+                    <div>
+                        J’accepte de recevoir des informations par email                    </div>
+                </template>
+            </v-checkbox>
             <v-checkbox v-model="cgu">
                 <template v-slot:label>
                     <div>
-                        Accepter less
+                        Accepter les
                         <a
                                 target="_blank"
                                 href="http://google.com"
@@ -38,7 +44,7 @@
             <p
                     class="error--text"
                     v-if="displayError">
-                les CGU et Partner doivent etre accepter
+                les CGU doivent etre accepter
             </p>
         </div>
         <div class="footer">
@@ -56,8 +62,8 @@
     name: 'Register form',
     data() {
       return {
+        optIn: true,
         cgu: false,
-        partner: false,
         email: '',
         zipCode: 59140,
         rules: {
@@ -91,6 +97,8 @@
         event.cgu = this.cgu;
         event.email = this.email;
         event.zipCode = this.zipCode;
+        event.optIn = this.optIn;
+        console.log(event)
         this.$emit( 'saved', event );
       },
     },
