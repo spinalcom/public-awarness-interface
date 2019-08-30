@@ -79,10 +79,10 @@
       this.$userManager.getUsers().then( users => {
         for (let i = 0; i < users.length; i++) {
           const user = users[i];
-          this.nbUser++;
+          let userHasConnection = false;
           for (let j = 0; j < user.info.connections.length; j++) {
             const connection = user.info.connections[i];
-            if (typeof connection !== "undefined")
+            if (typeof connection !== "undefined"){
               this.users.push( {
                 email: user.info.email.get(),
                 zipcode: user.info.zip.get(),
@@ -91,8 +91,12 @@
                 hour:
                   new Date( user.info.connections[i].get() ).toLocaleTimeString(),
                 isAdmin: user.info.isAdmin.get().toString()
-              } )
+              } );
+              userHasConnection = true;
+            }
           }
+          if (userHasConnection)
+            this.nbUser++;
         }
       } );
       const cookie = window.$cookies.get( 'user' );
