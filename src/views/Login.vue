@@ -71,9 +71,9 @@
 
 <style scoped>
     .background {
-        background-image: url(../assets/background.png), url(../assets/colas.jpg);
+        background-image:  url(../assets/colas.jpg);
         background-repeat: no-repeat, no-repeat;
-        background-size: cover, cover;
+        background-size:  cover;
         width: 100%;
         height: 100%;
     }
