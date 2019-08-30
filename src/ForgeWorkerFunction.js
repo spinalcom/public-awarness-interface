@@ -105,7 +105,6 @@ function userFunction( pdb ) {
         if (value.length > 0) {
           let date = new Date(convertDate( value )).getTime();
           if(isNaN(date)){
-          console.log('datete',value)
           }
           if (!res.hasOwnProperty( date ))
             res[date] = [];
