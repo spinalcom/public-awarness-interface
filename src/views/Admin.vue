@@ -4,14 +4,10 @@
                @connect="connect"
         ></login>
         <div v-else>
-            Nombre de connection total: {{nbCo}}
-
-            <v-btn @click="exportCSV"> Export CSV</v-btn>
-            <v-btn @click="exportExcel"> Export Excel</v-btn>
             <v-data-table
                     :headers="headers"
                     :items="users"
-                    class="elevation-2"
+                    class="elevation-2 tab"
             >
 
                 <template v-slot:items="props">
@@ -22,6 +18,17 @@
 
             </v-data-table>
 
+
+            <div class="summary">
+                <div class="summary-text">
+                    <p>Nombre de connection total: {{users.length}}</p>
+                    <p>Nombre d'utilisateur: {{nbUser}}</p>
+                </div>
+                <div class="summary-action">
+                    <v-btn @click="exportCSV"> Export CSV</v-btn>
+                    <v-btn @click="exportExcel"> Export Excel</v-btn>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -48,14 +55,11 @@
           { text: 'Heure de connection', value: 'hour' },
           { text: 'Administrateur', value: 'isAdmin' },
         ],
-        loggedIn: false
+        loggedIn: false,
+        nbUser:0
       };
     },
-    computed: {
-      nbCo() {
-        return this.users.length;
-      },
-    },
+
     methods: {
       exportCSV() {
         exportToCSV( 'users', this.users );
@@ -64,22 +68,18 @@
         exportToXLSX( 'user', this.users );
       },
       connect( event ) {
-
         this.$userManager.connectAdmin( event.email, event.password )
           .then( res => {
-
-            if (typeof res !== "undefined")
+            if (res !== false)
               this.loggedIn = true
-
           } )
-
       }
     },
     mounted() {
       this.$userManager.getUsers().then( users => {
         for (let i = 0; i < users.length; i++) {
           const user = users[i];
-
+          this.nbUser++;
           for (let j = 0; j < user.info.connections.length; j++) {
             const connection = user.info.connections[i];
             if (typeof connection !== "undefined")
@@ -99,8 +99,7 @@
       if ((typeof cookie !== 'undefined' || cookie !== null)) {
         this.$userManager.getUser( cookie ).then( user => {
           if (typeof user !== 'undefined' && user.info.hasOwnProperty( 'isAdmin' )
-            &&
-            user.info.isAdmin.get())
+            && user.info.isAdmin.get())
             this.loggedIn = true
         } )
       }
@@ -115,5 +114,12 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%)
+    }
+    .summary{
+
+    }
+
+    .summary-text{
+
     }
 </style>
