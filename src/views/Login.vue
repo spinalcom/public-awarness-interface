@@ -1,14 +1,11 @@
 <template>
-    <div class="login-body normal">
-        <request-user-information
-                class="login-item"
-                v-if="!agreed"
+    <div class="background">
+        <!--<request-user-information
                 @agreed="agreed = true"
                 @leave="redirectToGoogle"
-        ></request-user-information>
+        ></request-user-information>-->
         <register-form
-                class="login-item"
-                v-else
+                class="center"
                 @saved="savedInfo"
         ></register-form>
 
@@ -18,8 +15,6 @@
 <script>
   import RegisterForm from '../components/RegisterForm.vue';
   import RequestUserInformation from '../components/RequestUserInformation.vue';
-
-
 
   export default {
     name: 'Login',
@@ -75,27 +70,22 @@
 </script>
 
 <style scoped>
-    .normal {
+    .background {
         background-image: url(../assets/background.png), url(../assets/colas.jpg);
         background-repeat: no-repeat, no-repeat;
         background-size: cover, cover;
-    }
-
-    .login-body {
-
-        position: relative;
         width: 100%;
         height: 100%;
     }
-
-    .login-item {
-        width: 30%;
-        height: 50%;
-        margin: 0;
+    .center{
         position: absolute;
-        top: 50%;
         left: 50%;
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
+        top: 50%;
+        -webkit-transform: translate(-50%,-50%);
+        -moz-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
     }
+
 </style>
