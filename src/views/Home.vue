@@ -5,6 +5,8 @@
             <spinal-forge-viewer-vue :onInitialize="onInitialize">
 
             </spinal-forge-viewer-vue>
+            <img id="logo-colas" src="../assets/logo-colas.png"/>
+            <img id="logo-spinalcom" src="../assets/logo-spinalcom.png"/>
         </div>
         <div class="header">
             <!--<horizontal-date-picker @change="onDateChange"/>-->
@@ -179,7 +181,7 @@
             }
             return null;
           } );
-      },
+      }
     },
     mounted() {
       window.$cookies.config( '90d' );
@@ -200,7 +202,21 @@
 <style scoped>
 
 
-    .viewer {
+    #logo-colas {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        z-index: 1;
+    }
+
+    #logo-spinalcom {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        z-index: 1;
+    }
+
+    #viewer {
         height: 100vh;
         position: relative;
     }
