@@ -2,7 +2,7 @@
   "name": "public-awareness-interface",
   "version": "0.1.0",
   "scripts": {
-    "watch": "parcel watch src/index.html --out-dir build --public-url /html/pai --no-minify  --no-cache",
+    "watch": "parcel watch src/index.html --out-dir build --public-url /html/pai ",
     "serve": "parcel src/index.html --out-dir build --public-url /html/pai --no-minify  --no-cache",
     "build": "parcel build src/index.html --out-dir build --public-url /html/pai --no-minify"
   },
@@ -23,6 +23,7 @@
     "zipcelx": "^1.6.2"
   },
   "devDependencies": {
+    "@mdi/font": "^4.2.95",
     "@vue/component-compiler-utils": "^3.0.0",
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.2.2"
