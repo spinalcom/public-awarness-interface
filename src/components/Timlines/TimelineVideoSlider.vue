@@ -11,7 +11,9 @@
                     {{startStopIcon}}
                 </v-icon>
             </p>
-            <p class="video-slider-current-time">
+            <p class="video-slider-current-time"
+
+            >
                 {{currentDate}}
             </p>
             <p class="video-slider-time-stepper">
@@ -88,7 +90,7 @@
       },
       color: {
         type: String,
-        default: "rgb(246,226,0)"
+        default: "rgb(54,91,171)"
       },
       trackColor: {
         type: String,
@@ -104,11 +106,16 @@
       },
       currentDate: function () {
         const tmp = new moment( this.startDate ).add( this.dateNum, "days" );
-        this.$emit( 'change', tmp );
         return tmp.format( this.dateFormat );
       },
       endDateComputed: function () {
         return this.endDate.format(this.dateFormat)
+      }
+    },
+    watch : {
+      dateNum: function (value) {
+        const tmp = new moment( this.startDate ).add( value, "days" );
+        this.$emit( 'change', tmp );
       }
     },
     methods: {
@@ -151,7 +158,7 @@
         position: absolute;
         align-items: baseline;
         top: -60%;
-        left: 0.5%;
+        left: -0.3%;
     }
 
     .video-slider-time-stepper {
@@ -162,7 +169,7 @@
         padding-left: 10px;
         padding-right: 10px;
         padding-top: 0.3%;
-        color: rgba(0, 0, 0, 0.5);
+        color: rgb(54,91,171);
     }
 
     .video-slider-end-time {
