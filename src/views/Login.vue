@@ -42,7 +42,6 @@
         window.location.href = 'https://google.fr';
       },
       savedInfo( info ) {
-        console.log('rese', info)
         this.$userManager
           .register( info.email, info.zipCode )
           .then( ( user ) => {
@@ -57,10 +56,9 @@
           } ).catch( console.error );
       },
       redirectToMainPage( user ) {
-        window.$cookies.set( 'user', user.info.id.get(), null, '/' );
-        console.log(user)
-        console.log(window.$cookies.get('user'));
-        this.$router.push( '/' )
+        this.$cookies.set( 'user', user.info.id.get(), null, '/' );
+
+       this.$router.push( '/' )
       }
     },
     mounted() {
