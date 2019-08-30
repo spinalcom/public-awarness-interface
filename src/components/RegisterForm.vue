@@ -1,10 +1,10 @@
 <template>
-    <v-card min-width="350" max-width="420" color="rgba(216,216,216,100)">
+    <v-card min-width="350" max-width="420" dark>
         <v-card-title>
             Information utilisateur
         </v-card-title>
         <v-card-text>
-            <h3>
+            <h4>
                 <p>
                     Bienvenue sur le site de visualisation du démantèlement de
                     la
@@ -15,7 +15,7 @@
                     compléter le
                     formulaire suivant
                 </p>
-            </h3>
+            </h4>
 
 
             <v-text-field
@@ -33,21 +33,24 @@
                     outlined
                     v-model="zipCode"
             ></v-text-field>
-            <v-checkbox v-model="optIn">
-                <template v-slot:label>
-                    <div>
-                        J’accepte de recevoir des informations par email
-                    </div>
-                </template>
+            <v-checkbox
+                    v-model="optIn"
+                    label="J’accepte de recevoir des informations par email"
+                    :color="color"
+            >
             </v-checkbox>
-            <v-checkbox v-model="cgu">
+            <v-checkbox
+                    v-model="cgu"
+                    :color="color"
+            >
                 <template v-slot:label>
                     <div>
                         Accepter les
-                        <a
+                        <a  class="link"
                                 target="_blank"
                                 href="http://google.com"
                                 @click.stop
+
                         >
                             CGU
                         </a>
@@ -63,7 +66,8 @@
         <v-card-actions>
             <v-spacer></v-spacer>
 
-            <v-btn color="rgba(254,235,52,1)"
+            <v-btn :color="color"
+                   light
                    @click="save">
                 Valider
             </v-btn>
@@ -91,6 +95,7 @@
             'Code postal invalide',
         },
         notSaved: true,
+        color: 'rgba(246, 226, 0,1)',
       };
     },
     computed: {
@@ -121,5 +126,7 @@
 </script>
 
 <style scoped>
-
+.link{
+    color: rgba(246, 226, 0,1);
+}
 </style>
