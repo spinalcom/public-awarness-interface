@@ -1,11 +1,23 @@
 <template>
-    <div class="card"
-    >
-        <div class="header">
-            <h3> Information utilisateur</h3>
-        </div>
+    <v-card min-width="350" max-width="420" color="rgba(216,216,216,100)">
+        <v-card-title>
+            Information utilisateur
+        </v-card-title>
+        <v-card-text>
+            <h3>
+                <p>
+                    Bienvenue sur le site de visualisation du démantèlement de
+                    la
+                    raffinerie de Dunkerque
+                </p>
+                <p>
+                    Afin de visualiser l'avancement du démantèlement veuillez
+                    compléter le
+                    formulaire suivant
+                </p>
+            </h3>
 
-        <div class="body">
+
             <v-text-field
                     label="E-mail"
                     :rules="[rules.email]"
@@ -24,7 +36,8 @@
             <v-checkbox v-model="optIn">
                 <template v-slot:label>
                     <div>
-                        J’accepte de recevoir des informations par email                    </div>
+                        J’accepte de recevoir des informations par email
+                    </div>
                 </template>
             </v-checkbox>
             <v-checkbox v-model="cgu">
@@ -46,14 +59,16 @@
                     v-if="displayError">
                 les CGU doivent etre accepter
             </p>
-        </div>
-        <div class="footer">
+        </v-card-text>
+        <v-card-actions>
+            <v-spacer></v-spacer>
+
             <v-btn color="rgba(254,235,52,1)"
                    @click="save">
                 Valider
             </v-btn>
-        </div>
-    </div>
+        </v-card-actions>
+    </v-card>
 
 </template>
 
@@ -81,13 +96,13 @@
     computed: {
       displayError() {
         if (this.notSaved) return false;
-        return !(this.cgu  && this.email !== '' && this.zipCode !== -1);
+        return !(this.cgu && this.email !== '' && this.zipCode !== -1);
       },
     },
     methods: {
 
       validate() {
-        return this.cgu  && this.email !== '' && this.zipCode !== -1;
+        return this.cgu && this.email !== '' && this.zipCode !== -1;
       },
       save() {
         this.notSaved = false;
@@ -98,7 +113,7 @@
         event.email = this.email;
         event.zipCode = this.zipCode;
         event.optIn = this.optIn;
-        console.log(event)
+        console.log( event )
         this.$emit( 'saved', event );
       },
     },
@@ -106,34 +121,5 @@
 </script>
 
 <style scoped>
-    .header {
-        position: absolute;
-        top: 10%;
-    }
 
-    .card {
-        width: 100%;
-        height: 100%;
-        background: rgba(216, 216, 216, 100);
-        border-radius: 1%;
-        border: 1px solid rgba(0, 0, 0, 0.50);
-        box-shadow: 5px 5px 6px 0 rgba(0,0,0,0.5);
-        padding: 3%;
-        position: relative;
-    }
-
-    .footer{
-        position: absolute;
-        padding-bottom: 5%;
-        bottom: 0;
-        left: 60%;
-    }
-
-
-    .body {
-        position: absolute;
-        top: 20%;
-        left: 25%;
-        width: 50%;
-    }
 </style>
