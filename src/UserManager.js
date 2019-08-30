@@ -94,7 +94,10 @@ export default class UserManager {
       .then( () => this.colasUserContext.getChildren( [ColasRelationName] ) )
       .then( ( children ) => {
         for (let i = 0; i < children.length; i++) {
-          if (children[i].info.email.get() === email && children[i].info.password.get() === password) {
+          if (
+            children[i].info.email.get() === email
+            && children[i].info.password.get() === password
+          ) {
             return children[i];
           }
         }
