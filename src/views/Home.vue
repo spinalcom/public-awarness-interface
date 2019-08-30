@@ -61,19 +61,19 @@
         if (this.startTime === 999999999999990)
           return new moment();
 
-        return new moment( new Date( this.startTime ) ).subtract(1, 'd')
+        return new moment( new Date( this.startTime ) ).subtract( 1, 'd' )
       },
       endDate: function () {
         if (this.endTime === 0)
           return new moment();
 
-        return new moment( new Date( this.endTime ) ).add(1,'d')
+        return new moment( new Date( this.endTime ) ).add( 1, 'd' )
       },
       duration: function () {
-        if (this.endTime === 0 || this.startTime === 999999999999990 )
+        if (this.endTime === 0 || this.startTime === 999999999999990)
           return 730;
 
-        return this.endDate.diff(this.startDate, 'day');
+        return this.endDate.diff( this.startDate, 'day' );
       }
     },
     methods: {
@@ -114,13 +114,16 @@
           .then( res => {
             this.dbIds = res['dbIds'];
             for (let key in this.dbIds) {
-              let intKey = parseInt(key);
-              if (this.dbIds.hasOwnProperty( key ) && !isNaN(intKey) ) {
-                this.startTime = Math.min( intKey, this.startTime )
-                this.endTime = Math.max( intKey, this.endTime );
+              if (this.dbIds.hasOwnProperty( key )) {
+                let intKey = parseInt( key );
+                if (!isNaN( intKey )) {
+                  this.startTime = Math.min( intKey, this.startTime );
+                  this.endTime = Math.max( intKey, this.endTime );
+                }
               }
             }
-            this.viewerManager.viewer.setProgressiveRendering( false )
+            this.viewerManager.viewer.setProgressiveRendering( false );
+
             this.initialized = true;
           } );
       },
@@ -168,7 +171,6 @@
             return undefined;
           } );
       },
-
       getSvf() {
         return this.bimFileContext.getChildrenInContext( this.bimFileContext )
           .then( ( children ) => {
