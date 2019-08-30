@@ -7,7 +7,15 @@
             </spinal-forge-viewer-vue>
         </div>
         <div class="header">
-            <horizontal-date-picker @change="onDateChange"/>
+            <!--<horizontal-date-picker @change="onDateChange"/>-->
+            <timeline-video-slider
+                    v-if="initialized"
+                    :startDate="startDate"
+                    :endDate="endDate"
+                    :max="duration"
+                    @change="onDateChange">
+
+            </timeline-video-slider>
         </div>
 
 
@@ -22,12 +30,17 @@
   import loadModelPtr from '../utils';
   import HorizontalDatePicker
     from "../components/Timlines/HorizontalDatePicker";
-  import filterDb
-    , { getValues } from "../ForgeWorkerFunction";
+  import { getValues } from "../ForgeWorkerFunction";
+  import TimelineVideoSlider from "../components/Timlines/TimelineVideoSlider";
+  import moment from 'moment'
 
   export default {
     name: 'home',
-    components: { HorizontalDatePicker, SpinalForgeViewerVue },
+    components: {
+      TimelineVideoSlider,
+      HorizontalDatePicker,
+      SpinalForgeViewerVue
+    },
     data() {
       return {
         viewerManager: null,
@@ -37,17 +50,42 @@
         bimFileContext: null,
         model: null,
         loaded: false,
+        startTime: 999999999999990,
+        endTime: 0,
+        dbIds: {},
+        initialized: false
       };
+    },
+    computed: {
+      startDate: function () {
+        if (this.startTime === 999999999999990)
+          return new moment();
+
+        return new moment( new Date( this.startTime ) ).subtract(1, 'd')
+      },
+      endDate: function () {
+        if (this.endTime === 0)
+          return new moment();
+
+        return new moment( new Date( this.endTime ) ).add(1,'d')
+      },
+      duration: function () {
+        if (this.endTime === 0 || this.startTime === 999999999999990 )
+          return 730;
+
+        return this.endDate.diff(this.startDate, 'day');
+      }
     },
     methods: {
       onInitialize( viewerManager ) {
         this.viewerManager = viewerManager;
+
         getGraph()
           .then( graph => SpinalGraphService.setGraph( graph ).then( () => {
             this.graph = graph;
             return SpinalGraphService.waitForInitialization()
-              .then( () => SpinalGraphService.getContext( 'Timeline' ) );
           } ) )
+          .then( () => SpinalGraphService.getContext( 'Timeline' ) )
           .then( ( context ) => {
             if (typeof context !== 'undefined') {
               this.timelineContext = context;
@@ -57,7 +95,6 @@
             } else {
               alert( 'Timeline context not configured' );
             }
-
             return SpinalGraphService.getContext( 'BimFileContext' );
           } )
           .then( ( context ) => {
@@ -88,14 +125,22 @@
           } );
       },
       onDateChange( e ) {
+        if (typeof this.model === "undefined" || this.model === null)
+          return;
+
         const date = new Date( e.format() );
-        filterDb( this.model, this.attrName, date )
-          .then( ( obj ) => {
-            this.dbIds = [];
-            this.viewerManager.show( 1, this.model );
-            this.dbIds = obj.dbIds;
-            this.viewerManager.hide( this.dbIds, this.model );
-          } );
+
+        let res = [];
+        for (let key in this.dbIds) {
+          if (this.dbIds.hasOwnProperty( key )) {
+            if (parseInt( key ) <= date.getTime())
+              this.dbIds[key].forEach( id => {
+                if (res.indexOf( id ) === -1)
+                  res.push( id )
+              } )
+          }
+        }
+        this.viewerManager.hide( res, this.model );
       },
       getAttrName() {
         return new Promise( ( resolve ) => {
