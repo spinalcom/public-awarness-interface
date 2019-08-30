@@ -1,7 +1,7 @@
 <template>
     <v-card min-width="350" max-width="420" dark>
         <v-card-title>
-            Information utilisateur
+            Découvrez le projet de deconstruction de la raffinerie
         </v-card-title>
         <v-card-text>
             <h4>
@@ -27,7 +27,7 @@
                     v-model="email"
             ></v-text-field>
             <v-text-field
-                    label="Departement"
+                    label="Code postal"
                     placeholder="Placeholder"
                     :rules="[rules.zip]"
                     outlined
