@@ -35,7 +35,6 @@
         graph: null,
         timelineContext: null,
         bimFileContext: null,
-        dbIds: [],
         model: null,
         loaded: false,
       };
@@ -68,13 +67,24 @@
           .then( () => this.getSvf() )
           .then( ( svf ) => {
             this.path = window.location.origin + svf;
-            this.viewerManager.start( this.path, true )
-              .then( ( m ) => {
-                this.model = m;
-                this.loaded = true;
-                getValues(this.model,this.attrName).then(res =>
-                {console.log('getValue ', res)})
-              } );
+            return this.viewerManager.start( this.path, true )
+          } )
+          .then( ( m ) => {
+            this.model = m;
+            this.loaded = true;
+            return getValues( this.model, this.attrName )
+          } )
+          .then( res => {
+            this.dbIds = res['dbIds'];
+            for (let key in this.dbIds) {
+              let intKey = parseInt(key);
+              if (this.dbIds.hasOwnProperty( key ) && !isNaN(intKey) ) {
+                this.startTime = Math.min( intKey, this.startTime )
+                this.endTime = Math.max( intKey, this.endTime );
+              }
+            }
+            this.viewerManager.viewer.setProgressiveRendering( false )
+            this.initialized = true;
           } );
       },
       onDateChange( e ) {
@@ -152,5 +162,6 @@
         position: absolute;
         top: 10%;
         width: 100vw;
+        z-index: 1;
     }
 </style>
