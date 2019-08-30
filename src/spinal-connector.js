@@ -1,13 +1,9 @@
 import Spinalcore from 'spinal-core-connectorjs_type';
+import config from './config'
 
-
-const userId = 168;
-const password = '4CHveMnT38iW';
-const ip = 'localhost';
-const port = '7777';
 
 const conn = Spinalcore
-  .connect(`http://${userId}:${password}@${ip}:${port}/`);
+  .connect(`http://${config.userId}:${config.password}@${config.ip}:${config.port}/`);
 
 
 export default function getGraph() {
