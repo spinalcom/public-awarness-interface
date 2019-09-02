@@ -55,7 +55,8 @@
         startTime: 999999999999990,
         endTime: 0,
         dbIds: {},
-        initialized: false
+        initialized: false,
+        lastDbIds: []
       };
     },
     computed: {
@@ -145,6 +146,15 @@
               } )
           }
         }
+        let toDisplay = []
+        for (let i = 0; i < this.lastDbIds.length; i++) {
+          if (res.indexOf(this.lastDbIds[i]) === -1){
+            toDisplay.push(this.lastDbIds[i])
+          }
+        }
+
+        this.viewerManager.show(toDisplay);
+        this.lastDbIds = res;
         this.viewerManager.hide( res, this.model );
       },
       getAttrName() {
