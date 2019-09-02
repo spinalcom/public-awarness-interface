@@ -51,9 +51,10 @@
           } ).catch( console.error );
       },
       redirectToMainPage( user ) {
-        this.$cookies.set( 'user', user.info.id.get(), null, '/' );
-
-       this.$router.push( '/' )
+        if (typeof user !== "undefined"){
+          this.$cookies.set( 'user', user.info.id.get(), null, '/' );
+          this.$router.push( '/' )
+        }
       }
     },
     mounted() {
@@ -71,21 +72,22 @@
 
 <style scoped>
     .background {
-        background-image:  url(../assets/colas.jpg);
+        background-image: url(../assets/colas.jpg);
         background-repeat: no-repeat, no-repeat;
-        background-size:  cover;
+        background-size: cover;
         width: 100%;
         height: 100%;
     }
-    .center{
+
+    .center {
         position: absolute;
         left: 50%;
         top: 50%;
-        -webkit-transform: translate(-50%,-50%);
-        -moz-transform: translate(-50%,-50%);
-        -ms-transform: translate(-50%,-50%);
-        -o-transform: translate(-50%,-50%);
-        transform: translate(-50%,-50%);
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
     }
 
 </style>
