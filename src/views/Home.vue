@@ -15,7 +15,8 @@
                     :startDate="startDate"
                     :endDate="endDate"
                     :max="duration"
-                    @change="onDateChange">
+                    @change="onDateChange"
+            >
 
             </timeline-video-slider>
         </div>
@@ -126,7 +127,17 @@
               }
             }
             this.viewerManager.viewer.setProgressiveRendering( false );
+            this.viewerManager.viewer.navigation.setCameraUpVector(
+              new THREE.Vector3(-0.4082483040149399,
+                0.4082483175660186,
+                0.8164965606011091)
+            );
+            this.viewerManager.viewer.navigation.setView(
+              new THREE.Vector3(3266.613776624011,-3705.1753901778,3340.975522291141),
+              new THREE.Vector3(-170.97430537761724, -267.58719407153,
+                -96.61287349825356));
 
+            this.viewerManager.viewer.displayViewCubeUI(false)
             this.initialized = true;
           } );
       },
@@ -146,7 +157,7 @@
               } )
           }
         }
-        let toDisplay = []
+        let toDisplay = [];
         for (let i = 0; i < this.lastDbIds.length; i++) {
           if (res.indexOf(this.lastDbIds[i]) === -1){
             toDisplay.push(this.lastDbIds[i])
