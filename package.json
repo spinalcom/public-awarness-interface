@@ -3,9 +3,9 @@
   "description": "public awareness interface",
   "version": "0.1.0",
   "scripts": {
-    "watch": "parcel watch src/index.html --out-dir build --public-url /html/pai ",
-    "serve": "parcel src/index.html --out-dir build --public-url /html/pai --no-minify  --no-cache",
-    "build": "parcel build src/index.html --out-dir build --public-url /html/pai --no-minify",
+    "watch": "parcel watch src/index.html --out-dir www --public-url /html/pai ",
+    "serve": "parcel src/index.html --out-dir www --public-url /html/pai --no-minify  --no-cache",
+    "build": "parcel build src/index.html --out-dir www --public-url /html/pai --no-minify",
     "postinstall": "npm run spinal-register && npm run build",
     "spinal-register": "spinal-register --browser 'spinal-browser-'"
   },
