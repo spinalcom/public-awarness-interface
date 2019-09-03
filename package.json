@@ -30,8 +30,5 @@
     "@vue/component-compiler-utils": "^3.0.0",
     "vue-template-compiler": "^2.6.10",
     "vuetify-loader": "^1.2.2"
-  },
-  "alias": {
-    "vue": "./node_modules/vue/dist/vue.common.js"
   }
 }
