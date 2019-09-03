@@ -1,11 +1,10 @@
 <template>
     <div>
-        <login class="login-form" v-if="!loggedIn"
+        <admin-login class="login-form" v-if="!loggedIn"
                @connect="connect"
-        ></login>
+               :displayErrorText="displayErrorText"
+        ></admin-login>
         <div v-else>
-            Nombre de connection total: {{nbCo}}
-
             <v-btn @click="exportCSV"> Export CSV</v-btn>
             <v-btn @click="exportExcel"> Export Excel</v-btn>
             <v-data-table
@@ -19,16 +18,19 @@
                     <td class="text-xs-right">{{ props.item.zipcode }}</td>
                     <td class="text-xs-right">{{ props.item.date }}</td>
                 </template>
-
             </v-data-table>
 
+            <p>Nombre de connection total: {{nbCo}}</p>
+            <p>Nombre d'utilisateur total: {{nbUser}}</p>
         </div>
+
+
     </div>
 </template>
 
 <script>
-  import Login from '../components/AminLogin.vue';
-  import UserManager from '../UserManager';
+  import AdminLogin from '../components/AminLogin.vue';
+
 
   import {
     exportToXLSX,
@@ -37,7 +39,7 @@
 
   export default {
     name: 'Admin',
-    components: { Login },
+    components: { AdminLogin },
     data() {
       return {
         users: [],
@@ -48,7 +50,9 @@
           { text: 'Heure de connection', value: 'hour' },
           { text: 'Administrateur', value: 'isAdmin' },
         ],
-        loggedIn: false
+        loggedIn: false,
+        displayErrorText: false,
+        nbUser: 0
       };
     },
     computed: {
@@ -64,44 +68,55 @@
         exportToXLSX( 'user', this.users );
       },
       connect( event ) {
-
+        this.displayErrorText = false;
         this.$userManager.connectAdmin( event.email, event.password )
           .then( res => {
-
-            if (typeof res !== "undefined")
-              this.loggedIn = true
-
+            if (typeof res !== "boolean")
+            {
+              this.loggedIn = true;
+              this.init()
+            }
+            else{
+              this.displayErrorText = true;
+            }
           } )
 
+      },
+      init() {
+        this.$userManager.getUsers()
+          .then( users => {
+            this.nbUser = users.length;
+            for (let i = 0; i < users.length; i++) {
+              const user = users[i];
+              for (let j = 0; j < user.info.connections.length; j++) {
+                const connection = user.info.connections[i];
+                if (typeof connection !== "undefined")
+                  this.users.push( {
+                    email: user.info.email.get(),
+                    zipcode: user.info.zip.get(),
+                    date:
+                      new Date( user.info.connections[i].get() ).toLocaleDateString(),
+                    hour:
+                      new Date( user.info.connections[i].get() ).toLocaleTimeString(),
+                    isAdmin: user.info.isAdmin.get().toString()
+                  })
+              }
+            }
+          } );
       }
     },
     mounted() {
-      this.$userManager.getUsers().then( users => {
-        for (let i = 0; i < users.length; i++) {
-          const user = users[i];
 
-          for (let j = 0; j < user.info.connections.length; j++) {
-            const connection = user.info.connections[i];
-            if (typeof connection !== "undefined")
-              this.users.push( {
-                email: user.info.email.get(),
-                zipcode: user.info.zip.get(),
-                date:
-                  new Date( user.info.connections[i].get() ).toLocaleDateString(),
-                hour:
-                  new Date( user.info.connections[i].get() ).toLocaleTimeString(),
-                isAdmin: user.info.isAdmin.get().toString()
-              } )
-          }
-        }
-      } );
       const cookie = window.$cookies.get( 'user' );
       if ((typeof cookie !== 'undefined' || cookie !== null)) {
         this.$userManager.getUser( cookie ).then( user => {
           if (typeof user !== 'undefined' && user.info.hasOwnProperty( 'isAdmin' )
             &&
             user.info.isAdmin.get())
-            this.loggedIn = true
+          {
+            this.loggedIn = true;
+            this.init();
+          }
         } )
       }
     }
