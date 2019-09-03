@@ -1,8 +1,14 @@
 <template>
     <div class="encart">
         <p class="text">
-            Ce site internet nécessite l'utilisation de cookie pour son bon
-            fonctionnement
+            Ce site utilise des cookies pour stocker des informations sur votre ordinateur.
+            Consultez notre <a @click="redirectTo"> Charte
+            d'utilisation des
+            cookies
+        </a>
+            pour savoir comment fonctionnent les
+            cookies et
+            apprendre comment les bloquer.
         </p>
         <v-btn class="accept" @click="$emit('click')"> Accepter</v-btn>
     </div>
@@ -10,7 +16,12 @@
 
 <script>
   export default {
-    name: "Encart"
+    name: "Encart",
+    methods:{
+      redirectTo(){
+        this.$router.push('cookie_policy')
+      }
+    }
   }
 </script>
 
@@ -45,6 +56,5 @@
         -ms-transform: translateY(-50%);
         -o-transform: translateY(-50%);
         transform: translateY(-50%);
-        
     }
 </style>
