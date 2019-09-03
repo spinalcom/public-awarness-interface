@@ -4,6 +4,9 @@
     >
         <v-card-title> Admin Login</v-card-title>
         <v-card-text>
+            <p :style="{color: 'red'}" v-if="displayErrorText">
+                Utilisateur pas trouvé
+            </p>
             <v-text-field
                     label="E-mail"
                     :rules="[rules.email]"
@@ -11,6 +14,7 @@
                     type="email"
                     v-model="email"
             ></v-text-field>
+
             <v-text-field
                     label="Mot de passe"
                     outlined
@@ -40,15 +44,25 @@
         rules: {
           email: ( value ) => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return pattern.test( value ) || !this.tryToConnect || 'Invalid e-mail.';
+            return pattern.test( value ) || 'Invalid e-mail.';
           }
         },
       };
     },
-    computed: {
-      displayError() {
-        return !(this.email !== '');
-      },
+    watch: {
+      displayErrorText: {
+        handler: ( e ) => {
+          console.log( 'display', e )
+        }
+      }
+    },
+    props: {
+      displayErrorText: {
+        type: Boolean,
+        default: function () {
+          return false
+        }
+      }
     },
     methods: {
 
