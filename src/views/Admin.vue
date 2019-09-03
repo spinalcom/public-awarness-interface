@@ -23,8 +23,6 @@
             <p>Nombre de connection total: {{nbCo}}</p>
             <p>Nombre d'utilisateur total: {{nbUser}}</p>
         </div>
-
-
     </div>
 </template>
 
