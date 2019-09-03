@@ -11,9 +11,7 @@
                     {{startStopIcon}}
                 </v-icon>
             </p>
-            <p class="video-slider-current-time"
-
-            >
+            <p class="video-slider-current-time">
                 {{currentDate}}
             </p>
             <p class="video-slider-time-stepper">
@@ -29,7 +27,6 @@
                     :color="color"
                     :track-color="trackColor"
                     :max="max"
-                    always-dirty
             ></v-slider>
         </div>
     </div>
