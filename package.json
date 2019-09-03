@@ -6,8 +6,7 @@
     "watch": "parcel watch src/index.html --out-dir www --public-url /html/pai ",
     "serve": "parcel src/index.html --out-dir www --public-url /html/pai --no-minify  --no-cache",
     "build": "parcel build src/index.html --out-dir www --public-url /html/pai --no-minify",
-    "postinstall": "npm run spinal-register && npm run build",
-    "spinal-register": "spinal-register --browser 'spinal-browser-'"
+    "postinstall": "npm run build"
   },
   "dependencies": {
     "csv-stringify": "^5.3.0",
