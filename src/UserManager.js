@@ -48,7 +48,7 @@ export default class UserManager {
       .then( () => this.colasUserContext.getChildren( [ColasRelationName] ) )
       .then( ( children ) => {
         for (let i = 0; i < children.length; i++) {
-          if (children[i].info.email.get() === email) return false;
+          if (children[i].info.email.get() === email) return children[i];
         }
         return true;
       } )
@@ -95,8 +95,10 @@ export default class UserManager {
       .then( ( children ) => {
         for (let i = 0; i < children.length; i++) {
           if (
-            children[i].info.email.get() === email
-            && children[i].info.password.get() === password
+            (children[i].info.hasOwnProperty('email')
+            && children[i].info.hasOwnProperty('password'))
+            && ( children[i].info.email.get() === email
+            && children[i].info.password.get() === password)
           ) {
             return children[i];
           }
