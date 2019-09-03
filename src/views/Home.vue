@@ -137,7 +137,7 @@
               new THREE.Vector3(-170.97430537761724, -267.58719407153,
                 -96.61287349825356));
 
-            this.viewerManager.viewer.displayViewCubeUI(false)
+            this.viewerManager.viewer.displayViewCubeUI(false);
             this.initialized = true;
           } );
       },
