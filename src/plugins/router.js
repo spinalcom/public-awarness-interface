@@ -13,6 +13,11 @@ export default new Router({
       component: Home,
     },
     {
+      path: '/cookie_policy',
+      name: 'cookie_policy',
+      component: () => import('../views/CookiePolicy.vue'),
+    },
+    {
       path: '/login',
       name: 'login',
       component: () => import('../views/Login.vue'),

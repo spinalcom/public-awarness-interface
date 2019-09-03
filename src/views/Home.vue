@@ -9,7 +9,6 @@
             <img id="logo-spinalcom" src="../assets/logo-spinalcom.png"/>
         </div>
         <div class="header">
-            <!--<horizontal-date-picker @change="onDateChange"/>-->
             <timeline-video-slider
                     v-if="initialized"
                     :startDate="startDate"
@@ -31,8 +30,7 @@
   import { SpinalGraphService } from 'spinal-env-viewer-graph-service';
   import getGraph from '../spinal-connector';
   import loadModelPtr from '../utils';
-  import HorizontalDatePicker
-    from "../components/Timlines/HorizontalDatePicker";
+
   import { getValues } from "../ForgeWorkerFunction";
   import TimelineVideoSlider from "../components/Timlines/TimelineVideoSlider";
   import moment from 'moment'
@@ -41,7 +39,6 @@
     name: 'home',
     components: {
       TimelineVideoSlider,
-      HorizontalDatePicker,
       SpinalForgeViewerVue
     },
     data() {
