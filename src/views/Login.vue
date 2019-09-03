@@ -6,7 +6,7 @@
         ></request-user-information>-->
         <register-form
                 class="center"
-                @saved="savedInfo"
+                @saved="register"
         ></register-form>
 
     </div>
@@ -36,7 +36,7 @@
       redirectToGoogle() {
         window.location.href = 'https://google.fr';
       },
-      savedInfo( info ) {
+      register( info ) {
         this.$userManager
           .register( info.email, info.zipCode )
           .then( ( user ) => {
@@ -44,14 +44,12 @@
               this.redirectToMainPage( user )
             } else {
               this.$userManager.getUserByEmail( info.email )
-                .then(
-                  this.redirectToMainPage( user )
-                )
+                .then(() =>  this.redirectToMainPage( user ))
             }
           } ).catch( console.error );
       },
       redirectToMainPage( user ) {
-        if (typeof user !== "undefined"){
+        if (typeof user !== "undefined") {
           this.$cookies.set( 'user', user.info.id.get(), null, '/' );
           this.$router.push( '/' )
         }
