@@ -31,6 +31,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
+        width: 75%;
         -webkit-transform: translate(-50%, -50%);
         -moz-transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
