@@ -21,14 +21,14 @@
             <v-text-field
                     label="E-mail"
                     :rules="[rules.email]"
-                    placeholder="Placeholder"
+                    placeholder="E-mail"
                     outlined
                     type="email"
                     v-model="email"
             ></v-text-field>
             <v-text-field
                     label="Code postal"
-                    placeholder="Placeholder"
+                    placeholder="Code postal"
                     :rules="[rules.zip]"
                     outlined
                     v-model="zipCode"
@@ -88,7 +88,7 @@
         rules: {
           email: ( value ) => {
             const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return pattern.test( value ) || 'Invalid e-mail.';
+            return pattern.test( value ) || 'E-mail invalide.';
           },
           // eslint-disable-next-line no-restricted-globals
           zip: value => (value.length === 5 && !(isNaN( value ))) ||
