@@ -43,13 +43,15 @@
             if (typeof user !== 'undefined') {
               this.redirectToMainPage( user )
             } else {
-              this.$userManager.getUserByEmail( info.email )
+              this.$userManager
+                .getUserByEmail( info.email )
                 .then(() =>  this.redirectToMainPage( user ))
             }
           } ).catch( console.error );
       },
       redirectToMainPage( user ) {
         if (typeof user !== "undefined") {
+          this.$store.commit('connect');
           this.$cookies.set( 'user', user.info.id.get(), null, '/' );
           this.$router.push( '/' )
         }
