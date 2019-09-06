@@ -3,7 +3,7 @@ import config from './config'
 
 
 const conn = Spinalcore
-  .connect(`http://${config.userId}:${config.password}@${config.ip}:${config.port}/`);
+  .connect(`http://${config.userId}:${config.password}@${window.location.host}/`);
 
 
 export default function getGraph() {
