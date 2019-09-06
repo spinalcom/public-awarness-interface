@@ -1,0 +1,42 @@
+.link[data-v-c7a15b]{
+    color: rgba(246, 226, 0,1);
+}
+.card[data-v-a0a0c5]{
+  width: 75%;
+  height: 100%;
+  background: rgba(216,216,216,100);
+  border-radius: 1%;
+  box-shadow: 5px 5px 6px 0 rgba(0,0,0,0.5);
+  border: 1px solid rgba(0,0,0,0.50);
+  padding: 3%;
+  position: relative;
+}
+.footer[data-v-a0a0c5]{
+  position: absolute;
+  padding-bottom: 5%;
+  bottom: 0;
+  left: 60%;
+}
+.body[data-v-a0a0c5]{
+  position: absolute;
+  top: 20%;
+  left: 25%;
+  width: 50%;
+}
+.background[data-v-222fb1] {
+    background-image: url(/html/pai/colas.71a033d0.jpg);
+    background-repeat: no-repeat, no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.center[data-v-222fb1] {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
