@@ -203,15 +203,16 @@
     },
     mounted() {
       window.$cookies.config( '90d' );
-
-      const cookie = window.$cookies.get( 'user' );
-      if (typeof cookie === 'undefined' || cookie === '' || cookie === null) this.$router.push( 'login' );
-      else {
-        this.$userManager
-          .connect( cookie )
-          .then( ( res ) => {
-            if (!res) this.$router.push( 'login' );
-          } );
+      if(!this.$store.state.isConnected){
+        const cookie = window.$cookies.get( 'user' );
+        if (typeof cookie === 'undefined' || cookie === '' || cookie === null) this.$router.push( 'login' );
+        else {
+          this.$userManager
+            .connect( cookie )
+            .then( ( res ) => {
+              if (!res) this.$router.push( 'login' );
+            } );
+        }
       }
     },
   };
