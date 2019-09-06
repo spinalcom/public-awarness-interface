@@ -1,24 +1,18 @@
 <template>
     <div class="background">
-        <!--<request-user-information
-                @agreed="agreed = true"
-                @leave="redirectToGoogle"
-        ></request-user-information>-->
         <register-form
                 class="center"
                 @saved="register"
         ></register-form>
-
     </div>
 </template>
 
 <script>
   import RegisterForm from '../components/RegisterForm.vue';
-  import RequestUserInformation from '../components/RequestUserInformation.vue';
 
   export default {
     name: 'Login',
-    components: { RequestUserInformation, RegisterForm },
+    components: {  RegisterForm },
     data() {
       return {
         agreed: false,
