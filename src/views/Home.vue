@@ -7,8 +7,10 @@
             </spinal-forge-viewer-vue>
             <img id="logo-colas" src="../assets/logo-colas.png"/>
             <img id="logo-spinalcom" src="../assets/logo-spinalcom.png"/>
+            <encart-tuto v-if="initialized"> </encart-tuto>
         </div>
-        <div class="header">
+        <div class="header" >
+
             <timeline-video-slider
                     v-if="initialized"
                     :startDate="startDate"
@@ -34,10 +36,12 @@
   import { getValues } from "../ForgeWorkerFunction";
   import TimelineVideoSlider from "../components/Timlines/TimelineVideoSlider";
   import moment from 'moment'
+  import EncartTuto from "../components/EncartTuto";
 
   export default {
     name: 'home',
     components: {
+      EncartTuto,
       TimelineVideoSlider,
       SpinalForgeViewerVue
     },
@@ -133,8 +137,6 @@
               new THREE.Vector3(3266.613776624011,-3705.1753901778,3340.975522291141),
               new THREE.Vector3(-170.97430537761724, -267.58719407153,
                 -96.61287349825356));
-
-            this.viewerManager.viewer.displayViewCubeUI(false);
             this.initialized = true;
           } );
       },
