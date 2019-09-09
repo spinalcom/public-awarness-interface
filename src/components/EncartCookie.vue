@@ -16,7 +16,7 @@
 
 <script>
   export default {
-    name: "Encart",
+    name: "EncartCookie",
     methods:{
       redirectTo(){
         this.$router.push('cookie_policy')
