@@ -1,15 +1,15 @@
 <template>
     <div>
         <admin-login class="login-form" v-if="!loggedIn"
-               @connect="connect"
-               :displayErrorText="displayErrorText"
+                     @connect="connect"
+                     :displayErrorText="displayErrorText"
         ></admin-login>
         <div v-else>
             <v-btn @click="exportCSV"> Export CSV</v-btn>
             <v-btn @click="exportExcel"> Export Excel</v-btn>
             <v-data-table
                     :headers="headers"
-                    :items="users"
+                    :items="userConnections"
                     class="elevation-2"
             >
                 <template v-slot:items="props">
@@ -38,6 +38,7 @@
     components: { AdminLogin },
     data() {
       return {
+        userConnections: [],
         users: [],
         headers: [
           { text: 'E-mail', value: 'email' },
@@ -45,6 +46,7 @@
           { text: 'Date de connection', value: 'date' },
           { text: 'Heure de connection', value: 'hour' },
           { text: 'Administrateur', value: 'isAdmin' },
+          { text: 'optIn', value: 'optIn' },
         ],
         loggedIn: false,
         displayErrorText: false,
@@ -53,52 +55,53 @@
     },
     computed: {
       nbCo() {
-        return this.users.length;
-      },
+        return this.userConnections.length;
+      }
     },
     methods: {
       exportCSV() {
-        exportToCSV( 'users', this.users );
+        exportToCSV( 'users', this.userConnections );
       },
       exportExcel() {
-        exportToXLSX( 'user', this.users );
+        exportToXLSX( 'user', this.userConnections );
       },
       connect( event ) {
         this.displayErrorText = false;
         this.$userManager.connectAdmin( event.email, event.password )
           .then( res => {
-            if (typeof res !== "boolean")
-            {
+            if (typeof res !== "boolean") {
               this.loggedIn = true;
               this.init()
-            }
-            else{
+            } else {
               this.displayErrorText = true;
             }
           } )
       },
       init() {
-        this.users = [];
+        this.userConnections = [];
         this.$userManager.getUsers()
           .then( users => {
-            console.log('users', users);
             this.nbUser = users.length;
             for (let i = 0; i < users.length; i++) {
               const user = users[i];
-              if (user.info.hasOwnProperty('isAdmin') && user.info.isAdmin)
+              if (user.info.hasOwnProperty( 'isAdmin' ) &&
+                user.info.isAdmin.get()) {
                 this.nbUser--;
+              }
               for (let j = 0; j < user.info.connections.length; j++) {
                 const connection = user.info.connections[j];
                 if (typeof connection !== "undefined")
-                  this.users.push( {
+                  this.userConnections.push( {
                     email: user.info.email.get(),
                     zipcode: user.info.zip.get(),
                     date:
                       new Date( user.info.connections[j].get() ).toLocaleDateString(),
                     hour:
                       new Date( user.info.connections[j].get() ).toLocaleTimeString(),
-                    isAdmin: user.info.isAdmin.get().toString()
-                  })
+                    isAdmin: user.info.isAdmin.get().toString(),
+                    optIn: user.info.hasOwnProperty('optIn') ?
+                    user.info.optIn.get().toString() : 'false'
+                  } )
               }
             }
           } );
@@ -109,14 +112,13 @@
       if ((typeof cookie !== 'undefined' || cookie !== null)) {
         this.$userManager.getUser( cookie )
           .then( user => {
-          if (typeof user !== 'undefined' && user.info.hasOwnProperty( 'isAdmin' )
-            &&
-            user.info.isAdmin.get())
-          {
-            this.loggedIn = true;
-            this.init();
-          }
-        } )
+            if (typeof user !== 'undefined' && user.info.hasOwnProperty( 'isAdmin' )
+              &&
+              user.info.isAdmin.get()) {
+              this.loggedIn = true;
+              this.init();
+            }
+          } )
       }
     }
   }
