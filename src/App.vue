@@ -1,7 +1,7 @@
 <template>
   <v-app id="app">
     <div v-if="!cookieAccepted">
-      <encart @click="acceptCookies"/>
+      <encart-cookie @click="acceptCookies"/>
     </div>
 
     <router-view/>
@@ -15,9 +15,9 @@
   }
 </style>
 <script>
-  import Encart from "./components/Encart";
+  import EncartCookie from "./components/EncartCookie";
   export default {
-    components: { Encart },
+    components: { EncartCookie },
     data(){
       return {
         cookieAccepted: false
