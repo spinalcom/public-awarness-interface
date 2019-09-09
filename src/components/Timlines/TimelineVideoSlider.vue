@@ -113,6 +113,10 @@
       dateNum: function (value) {
         const tmp = new moment( this.startDate ).add( value, "days" );
         this.$emit( 'change', tmp );
+        if (value === this.max){
+          this.stop();
+
+        }
       }
     },
     methods: {
@@ -120,13 +124,11 @@
         this.interval = setInterval( () => {
             this.dateNum += this.step;
             this.dateNum = Math.min( this.dateNum, this.max );
-
-            if (this.dateNum === this.max)
-              this.stop();
           }, this.speed
         )
       },
       stop() {
+        this.playing = false;
         clearInterval( this.interval )
       },
       toggle() {
