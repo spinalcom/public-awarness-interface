@@ -118,7 +118,6 @@
         event.email = this.email;
         event.zipCode = this.zipCode;
         event.optIn = this.optIn;
-        console.log( event )
         this.$emit( 'saved', event );
       },
     },
