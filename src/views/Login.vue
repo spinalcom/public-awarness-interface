@@ -2,8 +2,8 @@
     <div class="background">
         <register-form
                 class="center"
-                @saved="register"
-        ></register-form>
+                @saved="register">
+        </register-form>
     </div>
 </template>
 
@@ -31,8 +31,10 @@
         window.location.href = 'https://google.fr';
       },
       register( info ) {
+        console.log(info);
+
         this.$userManager
-          .register( info.email, info.zipCode )
+          .register( info.email, info.zipCode, info.optIn )
           .then( ( user ) => {
             if (typeof user !== 'undefined') {
               this.redirectToMainPage( user )
