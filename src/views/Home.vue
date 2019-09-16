@@ -127,6 +127,7 @@
                 }
               }
             }
+            this.viewerManager.viewer.setReverseZoomDirection(true);
             this.viewerManager.viewer.setProgressiveRendering( false );
             this.viewerManager.viewer.navigation.setCameraUpVector(
               new THREE.Vector3(-0.4082483040149399,
@@ -138,6 +139,7 @@
               new THREE.Vector3(-170.97430537761724, -267.58719407153,
                 -96.61287349825356));
             this.initialized = true;
+
           } );
       },
       onDateChange( e ) {
