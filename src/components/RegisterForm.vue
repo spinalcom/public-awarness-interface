@@ -1,5 +1,5 @@
 <template>
-    <v-card min-width="420"  dark>
+    <v-card min-width="420" max-width="610" dark>
         <v-card-title>
             Bienvenue sur la plateforme de suivi de la déconstruction du site SRD !
         </v-card-title>
