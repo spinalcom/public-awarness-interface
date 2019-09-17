@@ -1,19 +1,17 @@
 <template>
-    <v-card min-width="350" max-width="420" dark>
+    <v-card min-width="420"  dark>
         <v-card-title>
-            Découvrez le projet de deconstruction de la raffinerie
+            Bienvenue sur la plateforme de suivi de la déconstruction du site SRD !
         </v-card-title>
         <v-card-text>
             <h4>
                 <p>
-                    Bienvenue sur le site de visualisation du démantèlement de
-                    la
-                    raffinerie de Dunkerque
+                    Cette plateforme de partage vous informe de l’avancement des travaux de déconstruction, en
+                    visualisant pas à pas les différentes étapes.
                 </p>
                 <p>
-                    Afin de visualiser l'avancement du démantèlement veuillez
-                    compléter le
-                    formulaire suivant
+                    Avant de vous permettre l’accès à la maquette numérique, nous vous prions de bien vouloir saisir les
+                    informations suivantes :
                 </p>
             </h4>
 
@@ -33,9 +31,11 @@
                     outlined
                     v-model="zipCode"
             ></v-text-field>
+            Si vous le souhaitez, ces informations seront utilisées pour vous informer des mises à jour sur la
+            maquette ou des évènements sur le chantier (Journées du patrimoine, etc.).
             <v-checkbox
                     v-model="optIn"
-                    label="J’accepte de recevoir des informations par email"
+                    label="Je ne souhaite pas que ces informations soient utilisées pour me contacter."
                     :color="color"
             >
             </v-checkbox>
@@ -47,10 +47,7 @@
                     <div>
                         Accepter les
                         <a  class="link"
-                                target="_blank"
-                                href="http://google.com"
-                                @click.stop
-
+                            @click="openCGU"
                         >
                             CGU
                         </a>
@@ -81,7 +78,7 @@
     name: 'Register form',
     data() {
       return {
-        optIn: true,
+        optIn: false,
         cgu: false,
         email: '',
         zipCode: 59140,
@@ -117,9 +114,12 @@
         event.cgu = this.cgu;
         event.email = this.email;
         event.zipCode = this.zipCode;
-        event.optIn = this.optIn;
+        event.optIn = !this.optIn;
         this.$emit( 'saved', event );
       },
+      openCGU(){
+        this.$router.push('cgu')
+      }
     },
   };
 </script>
