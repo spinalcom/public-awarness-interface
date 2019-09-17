@@ -23,6 +23,11 @@ export default new Router({
       component: () => import('../views/Login.vue'),
     },
     {
+      path: '/cgu',
+      name: 'cgu',
+      component: () => import('../views/CGU.vue'),
+    },
+    {
       path: '/admin',
       name: 'admin',
       component: () => import('../views/Admin.vue'),
