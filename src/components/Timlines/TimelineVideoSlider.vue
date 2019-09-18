@@ -42,7 +42,8 @@
         dateNum: 0,
         playing: false,
         interval: null,
-        lastDate: null
+        lastDate: null,
+        done: false
       }
     },
 
@@ -96,7 +97,8 @@
     },
     computed: {
       startStopIcon: function () {
-        return this.playing ? 'pause_circle_outline' : 'play_circle_outline'
+        return this.playing ? 'pause_circle_outline' : this.done ?  'replay' :
+        'play_circle_outline'
       },
       startStopColor: function () {
         return this.playing ? this.trackColor : this.color
@@ -114,6 +116,7 @@
         const tmp = new moment( this.startDate ).add( value, "days" );
         this.$emit( 'change', tmp );
         if (value === this.max){
+          this.done = true;
           this.stop();
 
         }
@@ -121,6 +124,10 @@
     },
     methods: {
       play() {
+        if (this.done){
+          this.done = false;
+        }
+
         this.interval = setInterval( () => {
             this.dateNum += this.step;
             this.dateNum = Math.min( this.dateNum, this.max );
@@ -133,8 +140,13 @@
       },
       toggle() {
         this.playing = !this.playing;
-        if (this.playing)
+        if (this.playing){
+          if (this.done){
+            this.dateNum = 0;
+            this.done = false;
+          }
           this.play();
+        }
         else
           this.stop();
       },
