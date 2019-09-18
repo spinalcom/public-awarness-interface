@@ -5,6 +5,10 @@
                 <v-icon >
                     close
                 </v-icon>
+                <p>
+                    Afin de profiter pleinement de la vidéo, il es préférable
+                    d'attendre l'affichage complet des couleurs
+                </p>
             </v-btn>
         </div>
         <div class="body">
@@ -13,7 +17,7 @@
                     play_circle_outline
                 </v-icon>
                 <p>
-                    Cliquez sur play pour lancer la video
+                    Cliquez sur play pour lancer la vidéo
                 </p>
             </div>
 
@@ -22,10 +26,11 @@
                     pause_circle_outline
                 </v-icon>
                 <p>
-                    Cliquez sur pause pour mettre la video en pause
+                    Cliquez sur pause pour arrêter la vidéo
                 </p>
             </div>
-            <p> Utilisez votre souris pour vous deplacer dans maquette</p>
+            <p> Utilisez votre souris pour vous déplacer/zoomer dans la
+                maquette</p>
         </div>
 
     </div>
