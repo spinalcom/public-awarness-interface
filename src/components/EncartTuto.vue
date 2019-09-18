@@ -35,7 +35,7 @@
                     replay
                 </v-icon>
                 <p>
-                    Cliquez sur pause pour arrêter la vidéo
+                    Cliquez sur rejouer pour relancer la vidéo
                 </p>
             </div>
 
