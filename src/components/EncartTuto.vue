@@ -5,13 +5,14 @@
                 <v-icon >
                     close
                 </v-icon>
-                <p>
-                    Afin de profiter pleinement de la vidéo, il es préférable
-                    d'attendre l'affichage complet des couleurs
-                </p>
             </v-btn>
+
         </div>
         <div class="body">
+            <p class="warning-text">
+                Afin de profiter pleinement de la vidéo, il est préférable
+                d'attendre l'affichage complet des couleurs
+            </p>
             <div class="icon-description">
                 <v-icon dark color="rgb(54,91,171)">
                     play_circle_outline
@@ -29,6 +30,15 @@
                     Cliquez sur pause pour arrêter la vidéo
                 </p>
             </div>
+            <div class="icon-description">
+                <v-icon dark color="rgb(54,91,171)">
+                    replay
+                </v-icon>
+                <p>
+                    Cliquez sur pause pour arrêter la vidéo
+                </p>
+            </div>
+
             <p> Utilisez votre souris pour vous déplacer/zoomer dans la
                 maquette</p>
         </div>
@@ -57,7 +67,6 @@
         width: 30%;
         border-radius: 8px;
         max-width: 360px;
-        left: 70vw;
         transform: translateY(15vh);
     }
     .header{
@@ -80,5 +89,8 @@
     p{
         padding-left: 5px;
         color: #f4f4f4;
+    }
+    .warning-text{
+        position: relative;
     }
 </style>
