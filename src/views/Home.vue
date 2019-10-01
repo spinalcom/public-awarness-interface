@@ -265,7 +265,13 @@
     },
 
     beforeDestroy() {
-      this.viewerManager.viewer.removeEventListener( Autodesk.Viewing.VIEWER_RESIZE_EVENT, this.adjustLogobinded )
+      if (
+        (typeof this.viewerManager !== "undefined" )
+        && (this.viewerManager !== null )
+        && (typeof this.viewerManager.viewer !== "undefined")
+        && (this.viewerManager.viewer !== null)
+      )
+        this.viewerManager.viewer.removeEventListener( Autodesk.Viewing.VIEWER_RESIZE_EVENT, this.adjustLogobinded )
     }
   };
 </script>
