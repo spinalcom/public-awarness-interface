@@ -97,7 +97,6 @@
     methods: {
       onInitialize( viewerManager ) {
         this.viewerManager = viewerManager;
-        console.log( this.viewerManager )
 
         getGraph()
           .then( graph => SpinalGraphService.setGraph( graph ).then( () => {
@@ -122,6 +121,8 @@
           } )
           .then( () => this.getSvf() )
           .then( ( svf ) => {
+            svf = svf.substring( 'html/viewerForgeFiles'.length +1,
+              svf.length);
             this.path = window.location.origin + svf;
 
             return this.viewerManager.start( this.path, true )
@@ -224,6 +225,7 @@
         return this.bimFileContext.getChildrenInContext( this.bimFileContext )
           .then( ( children ) => {
             if (typeof children !== 'undefined' && children.length > 0) {
+
               return this.loadSVF( children[0] );
             }
             return null;
@@ -233,11 +235,19 @@
         this.ratio = this.oldWidth !== 1 ?   e.width / this.oldWidth  : 1;
         this.oldWidth = e.width;
         this.displayLogo = this.viewerManager.viewer.container.clientWidth > 640;
+
         const colas = document.getElementById( "logo-colas" );
         const spinal = document.getElementById( "logo-spinalcom" );
         this.adjustLogo( colas );
         this.adjustLogo( spinal );
+        this.moveToolBar()
 
+      },
+      moveToolBar(){
+        let margin =
+          this.viewerManager.viewer.toolbar.container.style.marginBottom;
+        margin = this.viewerManager.viewer.container.clientWidth <= 980 ? 100: 0;
+        this.viewerManager.viewer.toolbar.container.style.marginBottom = margin + 'px';
       },
       adjustLogo( elt ) {
         if (elt !== null) {
