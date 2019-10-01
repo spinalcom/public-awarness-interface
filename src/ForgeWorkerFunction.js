@@ -118,7 +118,7 @@ function userFunction( pdb ) {
   
   return { dbIds: res, attrId: attrNameId };
 }`;
-  if (typeof m.getPropertyDb() !== "undefined")
+  if (typeof m !== "undefined" && m !== null && typeof m.getPropertyDb() !== "undefined" && m.getPropertyDb() !== null)
     return m.getPropertyDb().executeUserFunction( fun );
   
   return Promise. resolve({ dbIds: [], attrId: -1 })
