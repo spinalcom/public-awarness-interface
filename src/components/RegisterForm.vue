@@ -1,5 +1,5 @@
 <template>
-    <v-card min-width="420" max-width="610" dark>
+    <v-card  max-width="610" dark class="card">
         <v-card-title>
             Bienvenue sur la plateforme de suivi de la déconstruction du site SRD !
         </v-card-title>
@@ -128,4 +128,7 @@
 .link{
     color: rgba(246, 226, 0,1);
 }
+    .card{
+        overflow: auto;
+    }
 </style>
