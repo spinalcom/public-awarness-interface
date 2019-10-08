@@ -31,8 +31,6 @@
         window.location.href = 'https://google.fr';
       },
       register( info ) {
-        console.log(info);
-
         this.$userManager
           .register( info.email, info.zipCode, info.optIn )
           .then( ( user ) => {
@@ -41,7 +39,8 @@
             } else {
               this.$userManager
                 .getUserByEmail( info.email )
-                .then(() =>  this.redirectToMainPage( user ))
+                .then(() =>  this.redirectToMainPage( user )).catch(console.error
+              )
             }
           } ).catch( console.error );
       },
