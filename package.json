@@ -12,7 +12,7 @@
     "csv-stringify": "^5.3.0",
     "file-saver": "^2.0.2",
     "import": "0.0.6",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "spinal-core-connectorjs_type": "git+https://github.com/spinalcom/spinal-core-connectorjs_type.git",
     "spinal-env-viewer-graph-service": "git+https://github.com/spinalcom/Spinal-Graph-Service.git",
     "spinal-forge-viewer-vue": "git+https://github.com/spinalcom/spinal-forge-viewer-vue.git",
